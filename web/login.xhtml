@@ -10,18 +10,22 @@
     <h:body>
         <h:form>
 
-            Login: <h:inputText value="#{LoginBean.login}" required="true" id="login"  label="login" requiredMessage="Preencha o campo login!">
+            Login: <h:inputText value="#{loginBean.login}" required="true" id="login"  label="login" requiredMessage="Preencha o campo login!">
             </h:inputText> <br />
-            Senha: <h:inputText value="#{LoginBean.senha}" required="true" id="senha">
+            Senha: <h:inputText value="#{loginBean.senha}" required="true" id="senha">
             </h:inputText><br/>                        
-            <h:selectOneMenu value="#{LoginBean.option}">
-                <f:selectItem itemValue="Paciente" />
-                <f:selectItem itemValue="Medico" />
-                <f:selectItem itemValue="Farmacia" />
+            <h:selectOneMenu value="#{loginBean.option}">
+                <f:selectItem itemLabel="Paciente" itemValue="1" />
+                <f:selectItem itemLabel="Medico" itemValue="2" />
+                <f:selectItem itemLabel="Farmacia" itemValue="3" />
              </h:selectOneMenu><br/>
+             
+           
            <h:commandButton value="Login"
-                             action="#{LoginBean.addLogin()}"/>
+                             action="#{loginBean.addLogin()}"/>
             
+           <h:messages />
+           <h:outputText value="#{loginBean.result}" />
         </h:form>
     </h:body>
 </html>
