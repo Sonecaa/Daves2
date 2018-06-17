@@ -5,7 +5,7 @@
  */
 package DAOS;
 
-import classes.Paciente;
+import classes.Farmacia;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,23 +16,21 @@ import javax.persistence.Query;
  *
  * @author Marcelo
  */
-public class PacienteDAO {
+public class FarmaciaDAO {
     private EntityManager em;
     private EntityManagerFactory emf;
-
-    public PacienteDAO() {
+    public FarmaciaDAO() {
         emf = Persistence.createEntityManagerFactory(("PU"));
         em = emf.createEntityManager();
     }
-    public void save(Paciente paciente){
-        em.getTransaction().begin();
-        em.persist(paciente);
+    public void save(Farmacia farmacia){
+         em.getTransaction().begin();
+        em.persist(farmacia);
         em.getTransaction().commit();
     }
-    public List<Paciente> getAll(){
-    Query q = em.createNamedQuery("Paciente.findAll");
+    
+     public List<Farmacia> getAll(){
+    Query q = em.createNamedQuery("Farmacia.findAll");
     return q.getResultList();
     }
-    
-    
 }

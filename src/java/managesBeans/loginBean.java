@@ -5,6 +5,8 @@
  */
 package managesBeans;
 
+import DAOS.FarmaciaDAO;
+import DAOS.MedicoDAO;
 import DAOS.PacienteDAO;
 import classes.Farmacia;
 import classes.Medico;
@@ -36,14 +38,22 @@ public class loginBean {
             PacienteDAO dao = new PacienteDAO();
             Paciente paciente = new Paciente(0, login, senha);
             dao.save(paciente);
-            result = "lol";
+            result = "Paciente cadastrado";
            
         }
         if(option == 2){
            // medico = new Medico();
+            MedicoDAO dao = new MedicoDAO();
+            Medico medico = new Medico(0, login, senha);
+            dao.save(medico);
+            result = "Medico cadastrado";
         }
         if(option == 3){
            // farmacia = new Farmacia();
+            FarmaciaDAO dao = new FarmaciaDAO();
+            Farmacia farmacia = new Farmacia(0, login, senha);
+            dao.save(farmacia);
+            result = "Farmacia cadastrado";
         }
     }
     
