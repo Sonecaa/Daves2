@@ -30,9 +30,22 @@ public class MedicoDAO {
         em.getTransaction().commit();
      }
     public List<Medico> getAll(){
-    Query q = em.createNamedQuery("Medicamento.findAll");
+    Query q = em.createNamedQuery("Medico.findAll");
     return q.getResultList();
     }
     
+     public Medico checkaLogin(String login, String password){
+        if(login != "" || password != ""){
+             Query q = em.createNamedQuery("Medico.findByNome").setParameter("nome", login);
+             Query q2= em.createNamedQuery("Medico.findBySenha").setParameter("senha", password);
+             
+             if(q.getResultList().size() > 0 && q2.getResultList().size() > 0){
+                 return (Medico) q.getSingleResult();
+             }else{
+                 return null;
+             }
+        }
+        return null;
+    }
     
 }

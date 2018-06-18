@@ -33,4 +33,18 @@ public class FarmaciaDAO {
     Query q = em.createNamedQuery("Farmacia.findAll");
     return q.getResultList();
     }
+     
+     public Farmacia checkaLogin(String login, String password){
+        if(login != "" || password != ""){
+             Query q = em.createNamedQuery("Farmacia.findByNome").setParameter("nome", login);
+             Query q2= em.createNamedQuery("Farmacia.findBySenha").setParameter("senha", password);
+             
+             if(q.getResultList().size() > 0 && q2.getResultList().size() > 0){
+                 return (Farmacia) q.getSingleResult();
+             }else{
+                 return null;
+             }
+        }
+        return null;
+    }
 }

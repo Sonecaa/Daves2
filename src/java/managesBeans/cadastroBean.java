@@ -11,74 +11,62 @@ import DAOS.PacienteDAO;
 import classes.Farmacia;
 import classes.Medico;
 import classes.Paciente;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Marcelo
  */
 @ManagedBean
-@SessionScoped
-public class loginBean {
+@RequestScoped
+public class cadastroBean {
 
     private int option;
-    
+
     private String login;
     private String senha;
-    
+
     private String result;
-    
+
     private Paciente pacienteLogado;
     private Medico medicoLogado;
     private Farmacia farmaciaLogado;
-    
-     public loginBean() {
-        
+
+    public cadastroBean() {
     }
-     
     
-     public String login(){        
-          if(option == 1){
+
+    public String addLogin() {
+        if (option == 1) {
+            //paciente = new Paciente();
             PacienteDAO dao = new PacienteDAO();
-            if(dao.checkaLogin(login, senha) != null){
-                pacienteLogado = dao.checkaLogin(login, senha);
-                return "Paciente/panelPaciente.xhtml";               
-            }else{
-                result = "Usuario ou senhas inexistente!";
-            }
-            
+            Paciente paciente = new Paciente(0, login, senha);
+            dao.save(paciente);
+            result = "Paciente cadastrado";
+
         }
-        if(option == 2){       
+        if (option == 2) {
+            // medico = new Medico();
             MedicoDAO dao = new MedicoDAO();
-            if(dao.checkaLogin(login, senha) != null){
-                medicoLogado = dao.checkaLogin(login, senha);
-              return "Medico/panelMedico.xhtml";        
-            }else{
-                result = "Usuario ou senhas inexistente!";
-            }
+            Medico medico = new Medico(0, login, senha);
+            dao.save(medico);
+            result = "Medico cadastrado";
 
         }
-        if(option == 3){      
+        if (option == 3) {
+            // farmacia = new Farmacia();
             FarmaciaDAO dao = new FarmaciaDAO();
-             if(dao.checkaLogin(login, senha) != null){
-                farmaciaLogado = dao.checkaLogin(login, senha);
-                return "Farmacia/panelFarmacia.xhtml";       
-            }else{
-                result = "Usuario ou senhas inexistente!";
-            }
+            Farmacia farmacia = new Farmacia(0, login, senha);
+            dao.save(farmacia);
+            result = "Farmacia cadastrado";
 
         }
-        
-        result = "Erro";
+
         return "";
     }
-    
 
-         
-     
-     
     public int getOption() {
         return option;
     }
@@ -87,7 +75,7 @@ public class loginBean {
         this.option = option;
     }
 
-       public String getLogin() {
+    public String getLogin() {
         return login;
     }
 
@@ -134,6 +122,4 @@ public class loginBean {
     public void setFarmaciaLogado(Farmacia farmaciaLogado) {
         this.farmaciaLogado = farmaciaLogado;
     }
-   
-    
 }

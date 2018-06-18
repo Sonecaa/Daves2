@@ -34,5 +34,18 @@ public class PacienteDAO {
     return q.getResultList();
     }
     
+    public Paciente checkaLogin(String login, String password){
+        if(login != "" || password != ""){
+             Query q = em.createNamedQuery("Paciente.findByNome").setParameter("nome", login);
+             Query q2= em.createNamedQuery("Paciente.findBySenha").setParameter("senha", password);
+             
+             if(q.getResultList().size() > 0 && q2.getResultList().size() > 0){
+                 return (Paciente) q.getSingleResult();
+             }else{
+                 return null;
+             }
+        }
+        return null;
+    }
     
 }
