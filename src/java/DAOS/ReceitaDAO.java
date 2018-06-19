@@ -6,6 +6,7 @@
 package DAOS;
 
 import classes.Receita;
+import classes.Receitaxexame;
 import classes.Receitaxmedicamento;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -41,6 +42,11 @@ public class ReceitaDAO {
     public void saveMedicamentos(Receitaxmedicamento rxm) {
         em.getTransaction().begin();
         em.persist(rxm);
+        em.getTransaction().commit();
+    }
+      public void saveExames(Receitaxexame rxe) {
+        em.getTransaction().begin();
+        em.persist(rxe);
         em.getTransaction().commit();
     }
 }

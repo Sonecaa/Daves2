@@ -33,6 +33,11 @@ public class PacienteDAO {
     Query q = em.createNamedQuery("Paciente.findAll");
     return q.getResultList();
     }
+     public Paciente findById(int id){
+    Query q = em.createNamedQuery("Paciente.findById");
+    q.setParameter("id", id);
+    return (Paciente) q.getSingleResult();
+    }
     
     public Paciente checkaLogin(String login, String password){
         if(login != "" || password != ""){

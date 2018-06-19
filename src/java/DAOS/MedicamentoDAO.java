@@ -35,4 +35,9 @@ public class MedicamentoDAO {
         Query q = em.createNamedQuery("Medicamento.findAll");
         return q.getResultList();
     }
+    public Medicamento findByName(String nome){
+          Query q = em.createNamedQuery("Medicamento.findByNome");
+          q.setParameter("nome", nome);
+        return (Medicamento) q.getSingleResult();
+    }
 }

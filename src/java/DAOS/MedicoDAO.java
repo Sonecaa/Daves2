@@ -47,5 +47,9 @@ public class MedicoDAO {
         }
         return null;
     }
-    
+       public Medico findById(int id){
+    Query q = em.createNamedQuery("Medico.findById");
+    q.setParameter("id", id);
+    return (Medico) q.getSingleResult();
+    }
 }

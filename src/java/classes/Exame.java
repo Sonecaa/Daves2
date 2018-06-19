@@ -47,7 +47,7 @@ public class Exame implements Serializable {
     private String nome;
     @Basic(optional = false)
     @Column(nullable = false, length = 45)
-    private String medicoResposavel;
+    private int medicoResposavel;
     @JoinColumn(name = "id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Medico medico;
@@ -61,7 +61,7 @@ public class Exame implements Serializable {
         this.id = id;
     }
 
-    public Exame(Integer id, String nome, String medicoResposavel) {
+    public Exame(Integer id, String nome, int medicoResposavel) {
         this.id = id;
         this.nome = nome;
         this.medicoResposavel = medicoResposavel;
@@ -83,11 +83,11 @@ public class Exame implements Serializable {
         this.nome = nome;
     }
 
-    public String getMedicoResposavel() {
+    public int getMedicoResposavel() {
         return medicoResposavel;
     }
 
-    public void setMedicoResposavel(String medicoResposavel) {
+    public void setMedicoResposavel(int medicoResposavel) {
         this.medicoResposavel = medicoResposavel;
     }
 
