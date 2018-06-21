@@ -39,6 +39,12 @@ public class ReceitaDAO {
         return q.getResultList();
     }
     
+    public List<Receita> getReceitasByPaciente(int id) {
+        Query q = em.createNamedQuery("Receita.findByPacienteResponsavel");
+         q.setParameter("pacienteResponsavel", id);
+        return q.getResultList();
+    }
+    
     public void saveMedicamentos(Receitaxmedicamento rxm) {
         em.getTransaction().begin();
         em.persist(rxm);
@@ -48,5 +54,11 @@ public class ReceitaDAO {
         em.getTransaction().begin();
         em.persist(rxe);
         em.getTransaction().commit();
+    }
+      
+     public Receita findById(int id){
+    Query q = em.createNamedQuery("Receita.findById");
+    q.setParameter("id", id);
+    return (Receita) q.getSingleResult();
     }
 }

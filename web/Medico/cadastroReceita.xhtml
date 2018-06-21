@@ -12,7 +12,10 @@
          <h:form>
             
              Medicamentos: <h:selectManyCheckbox value="#{cadastroReceita.listaMedicamento}">
-                 <f:selectItems value="#{cadastroReceita.medicamentos}" var="eachMedicamento" itemLabel="#{eachMedicamento.nome}" itemValue="#{eachMedicamento}"  />
+                 <f:selectItems value="#{cadastroReceita.medicamentos}" var="eachMedicamento" itemLabel="#{eachMedicamento.nome}" itemValue="#{eachMedicamento.nome}"  />
+             </h:selectManyCheckbox><br/><br />
+             Exames: <h:selectManyCheckbox value="#{cadastroReceita.listaExames}">
+                 <f:selectItems value="#{cadastroReceita.exames}" var="eachExame" itemLabel="#{eachExame.nome}" itemValue="#{eachExame.nome}"  />
              </h:selectManyCheckbox><br/><br />
             Dosagem: <h:inputText value="#{cadastroReceita.dosagem}" required="true" id="dosagem">
             </h:inputText> <br />

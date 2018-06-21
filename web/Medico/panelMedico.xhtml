@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -10,6 +12,76 @@
         <h2>Medico responsavel: <h:outputText value="#{loginBean.medicoLogado.nome}"></h:outputText></h2>
         <h:link outcome="cadastroReceita" value="Cadastrar nova receita" /><br/>
         <h:link outcome="cadastroMedicamento" value="Cadastrar novo medicamento" /><br/>
+        <h:link outcome="cadastroExame" value="Cadastrar novo exame" /><br/>
     </h:body>
+
+    <br />
+
+    <h:dataTable value="#{painelAdminBean.receitas}" var="r" border="1" style="width:100%">
+        <h:column>
+            <f:facet name="header">
+                Id
+            </f:facet>
+            ${r.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                Data
+            </f:facet>
+            ${r.dataGerado}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                Conteúdo
+            </f:facet>
+            Dosagem: ${r.dosagem}<br/>
+            Via de Administração:  ${r.viaAdministracao}<br/>
+            Frequencia:  ${r.frequencia}<br/>
+            Horario de administração:  ${r.horarioAdministracao}<br/>
+            Dietas: ${r.dietas}<br/>
+            Nutrição ${r.nutricao}<br/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                Paciente Receitado
+            </f:facet>
+            ${painelAdminBean.pacienteById(r.pacienteResponsavel).nome}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                Medico Responsavel
+            </f:facet>
+            ${painelAdminBean.medicoById(r.medicoResponsavel).nome}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                Foi vendida?
+            </f:facet>
+
+            <c:choose>
+                <c:when test="${r.foivendida} == 1">
+                    foi vendida pela farmacia ${r.farmaciaQueVendeu}
+                </c:when>
+                <c:otherwise>
+                    não foi vendida
+                </c:otherwise>
+            </c:choose>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                Cancelada
+            </f:facet>
+
+            <h:outputText value="CANCELADA" rendered="${r.cancelada != null}" />
+
+            <h:form rendered="${r.cancelada == null}">
+
+                <h:commandButton value="Cancelar"
+                                 action="#{painelAdminBean.cancelarReceita(r.id)}"/>
+            </h:form>
+
+
+        </h:column>
+    </h:dataTable>
 </html>
 

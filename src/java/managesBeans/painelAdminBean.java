@@ -31,8 +31,13 @@ public class painelAdminBean {
         receitas = daoR.getAll();
     }
     
-    public void cancelarReceita(int id){
-        
+    public String cancelarReceita(int id){
+         ReceitaDAO daoR = new ReceitaDAO();
+       Receita receita = daoR.findById(id);
+       receita.setCancelada(1);
+       daoR.save(receita);
+       receitas = daoR.getAll();
+       return "";
     }
     
     public Paciente pacienteById(int id){
