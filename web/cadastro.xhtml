@@ -3,13 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Cadastro</title>
     </h:head>
     <h:body>
-        <h1>Tela de Cadastro</h1>
-        <h:form>
+         <ui:composition template="TemplateInicio.xhtml">
+            <ui:define name="top">
+                Tela de Cadastro
+            </ui:define>
+            <ui:define name="content">
+                 <h:form>
 
             Login: <h:inputText value="#{cadastroBean.login}" required="true" id="login"  label="login" requiredMessage="Preencha o campo login!">
             </h:inputText> <br />
@@ -30,6 +35,10 @@
            <h:messages />
            <h:outputText value="#{cadastroBean.result}" />
         </h:form>
+            </ui:define>
+        </ui:composition>
+        
+       
     </h:body>
 </html>
 

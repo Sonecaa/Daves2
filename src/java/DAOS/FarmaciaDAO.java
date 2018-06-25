@@ -6,6 +6,8 @@
 package DAOS;
 
 import classes.Farmacia;
+import classes.Receitaxexame;
+import classes.Receitaxmedicamento;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,6 +34,20 @@ public class FarmaciaDAO {
      public List<Farmacia> getAll(){
     Query q = em.createNamedQuery("Farmacia.findAll");
     return q.getResultList();
+    }
+     public List<Receitaxmedicamento> getAllMedicamentosById(int id){
+    Query q = em.createQuery("SELECT r FROM Receitaxmedicamento r WHERE r.receita.id = :id").setParameter("id", id);
+    return q.getResultList();
+    }
+     
+    public List<Receitaxexame> getAllExamesById(int id){
+    Query q = em.createQuery("SELECT r FROM Receitaxexame r WHERE r.receita.id = :id").setParameter("id", id);
+    return q.getResultList();
+    } 
+        public Farmacia findById(int id){
+    Query q = em.createNamedQuery("Farmacia.findById");
+    q.setParameter("id", id);
+    return (Farmacia) q.getSingleResult();
     }
      
      public Farmacia checkaLogin(String login, String password){

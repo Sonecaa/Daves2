@@ -5,12 +5,15 @@
  */
 package managesBeans;
 
+import DAOS.FarmaciaDAO;
 import DAOS.MedicoDAO;
 import DAOS.PacienteDAO;
 import DAOS.ReceitaDAO;
 import classes.Medico;
 import classes.Paciente;
 import classes.Receita;
+import classes.Receitaxexame;
+import classes.Receitaxmedicamento;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -29,6 +32,36 @@ public class painelAdminBean {
     public painelAdminBean() {
         ReceitaDAO daoR = new ReceitaDAO();
         receitas = daoR.getAll();
+    }
+    
+     public String listarMedicamentos(int id){
+       String StringList = "";
+              
+       FarmaciaDAO daoF = new FarmaciaDAO();
+       List<Receitaxmedicamento> listamedicamentos = daoF.getAllMedicamentosById(id);
+       
+        for (int i = 0; i < listamedicamentos.size(); i++) {
+          
+            StringList += " " + listamedicamentos.get(i).getMedicamento().getNome();
+            
+        }
+        
+       return StringList;
+    }
+     
+       public String listarExames(int id){
+       String StringList = "";
+              
+       FarmaciaDAO daoF = new FarmaciaDAO();
+       List<Receitaxexame> listaexames = daoF.getAllExamesById(id);
+       
+        for (int i = 0; i < listaexames.size(); i++) {
+          
+            StringList += " " + listaexames.get(i).getExame().getNome();
+            
+        }
+        
+       return StringList;
     }
     
     public String cancelarReceita(int id){

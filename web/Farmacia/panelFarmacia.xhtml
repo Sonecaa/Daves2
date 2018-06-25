@@ -3,97 +3,117 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-       <h1>Painel da Farmacia</h1>
-       <h2>Logado como: <h:outputText value="#{loginBean.farmaciaLogado.nome}"></h:outputText></h2>
+         <ui:composition template="../Template.xhtml">
+            <ui:define name="top">
+                 <h1>Painel da Farmacia</h1>
+        <h2>Logado como: <h:outputText value="#{loginBean.farmaciaLogado.nome}"></h:outputText></h2>
+            </ui:define>
+            <ui:define name="content">
+                
        
-       <h4>Listar receitas de um paciente</h4>
-       <h:form>
-           Escolha um paciente :<h:selectOneListbox value="#{painelFarmacia.id}">
-           <f:selectItems value="#{painelFarmacia.pacientes}" var="eachPaciente" itemLabel="#{eachPaciente.nome}" itemValue="#{eachPaciente.id}"  />
-       </h:selectOneListbox>
-       <br/>
-       <h:inputHidden value="1" id="listaSetada" />
-             <h:commandButton value="Selecionar paciente"
+       
+
+        <h4>Listar receitas de um paciente</h4>
+        <h:form>
+            Escolha um paciente :<h:selectOneListbox value="#{painelFarmacia.id}">
+                <f:selectItems value="#{painelFarmacia.pacientes}" var="eachPaciente" itemLabel="#{eachPaciente.nome}" itemValue="#{eachPaciente.id}"  />
+            </h:selectOneListbox>
+            <br/>
+            <h:inputHidden value="1" id="listaSetada" />
+            <h:commandButton value="Selecionar paciente"
                              action="#{painelFarmacia.listaReceitasByPaciente()}"/>
-       </h:form>
-       
-       
-       <br />
-       <br />
-       <br />
-       <h:dataTable value="#{painelFarmacia.receitas}" var="r" border="1" style="width:100%">
-        <h:column>
-            <f:facet name="header">
-                Id
-            </f:facet>
-            ${r.id}
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                Data
-            </f:facet>
-            ${r.dataGerado}
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                Conteúdo
-            </f:facet>
-            Dosagem: ${r.dosagem}<br/>
-            Via de Administração:  ${r.viaAdministracao}<br/>
-            Frequencia:  ${r.frequencia}<br/>
-            Horario de administração:  ${r.horarioAdministracao}<br/>
-            Dietas: ${r.dietas}<br/>
-            Nutrição ${r.nutricao}<br/>
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                Paciente Receitado
-            </f:facet>
-            ${painelFarmacia.pacienteById(r.pacienteResponsavel).nome}
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                Medico Responsavel
-            </f:facet>
-            ${painelFarmacia.medicoById(r.medicoResponsavel).nome}
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                Foi vendida?
-            </f:facet>
-
-            <c:choose>
-                <c:when test="${r.foivendida} == 1">
-                    foi vendida pela farmacia ${r.farmaciaQueVendeu}
-                </c:when>
-                <c:otherwise>
-                    não foi vendida
-                </c:otherwise>
-            </c:choose>
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                Cancelada
-            </f:facet>
-
-            <h:outputText value="CANCELADA" rendered="${r.cancelada != null}" />
-
-            <h:form rendered="${r.cancelada == null}">
-
-                <h:commandButton value="Cancelar"
-                                 action="#{painelFarmacia}"/>
-            </h:form>
+        </h:form>
 
 
-        </h:column>
-    </h:dataTable>
-          <h:messages />
-           <h:outputText value="#{painelFarmacia.result}" />
+        <br />
+        <br />
+        <br />
+        <h:dataTable value="#{painelFarmacia.receitas}" var="r" border="1" style="width:100%">
+            <h:column>
+                <f:facet name="header">
+                    Id
+                </f:facet>
+                ${r.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Data
+                </f:facet>
+                ${r.dataGerado}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Conteúdo
+                </f:facet>
+                Dosagem: ${r.dosagem}<br/>
+                Via de Administração:  ${r.viaAdministracao}<br/>
+                Frequencia:  ${r.frequencia}<br/>
+                Horario de administração:  ${r.horarioAdministracao}<br/>
+                Dietas: ${r.dietas}<br/>
+                Nutrição ${r.nutricao}<br/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Paciente Receitado
+                </f:facet>
+                ${painelFarmacia.pacienteById(r.pacienteResponsavel).nome}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Medico Responsavel
+                </f:facet>
+                ${painelFarmacia.medicoById(r.medicoResponsavel).nome}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                   Medicamentos
+                </f:facet>
+                medicamentos: 
+                <h:outputText value="${painelFarmacia.listarMedicamentos(r.id)}" />
+            </h:column>
+                      <h:column>
+                <f:facet name="header">
+                   Exames
+                </f:facet>
+                exames: 
+                <h:outputText value="${painelAdminBean.listarExames(r.id)}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Foi vendida?
+                </f:facet>
+
+                <h:outputText value="Vendida" rendered="${r.foivendida == 1}" />
+
+                <h:form rendered="${r.foivendida == 0}">
+                    <h:commandButton value="Vender"
+                                     action="#{painelFarmacia.venderReceita(r.id, loginBean.farmaciaLogado.id)}"/>
+                </h:form>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Cancelada
+                </f:facet>
+
+                <h:outputText value="CANCELADA" rendered="${r.cancelada != null}" />
+
+
+
+                <h:outputText value="NAO CANCELADA"  rendered="${r.cancelada == null}" />
+
+
+            </h:column>
+        </h:dataTable>
+        <h:messages />
+        <h:outputText value="#{painelFarmacia.result}" />
+             </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

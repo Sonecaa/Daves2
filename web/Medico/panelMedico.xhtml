@@ -3,17 +3,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h1>Painel do Medico</h1>
+        <ui:composition template="../Template.xhtml">
+            <ui:define name="top">
+                    <h1>Painel do Medico</h1>
         <h2>Medico responsavel: <h:outputText value="#{loginBean.medicoLogado.nome}"></h:outputText></h2>
+        </ui:define>
+            <ui:define name="content">
+
         <h:link outcome="cadastroReceita" value="Cadastrar nova receita" /><br/>
         <h:link outcome="cadastroMedicamento" value="Cadastrar novo medicamento" /><br/>
         <h:link outcome="cadastroExame" value="Cadastrar novo exame" /><br/>
-    </h:body>
+    
 
     <br />
 
@@ -54,6 +60,20 @@
             ${painelAdminBean.medicoById(r.medicoResponsavel).nome}
         </h:column>
         <h:column>
+                <f:facet name="header">
+                   Medicamentos
+                </f:facet>
+                medicamentos: 
+                <h:outputText value="${painelAdminBean.listarMedicamentos(r.id)}" />
+            </h:column>
+          <h:column>
+                <f:facet name="header">
+                   Exames
+                </f:facet>
+                exames: 
+                <h:outputText value="${painelAdminBean.listarExames(r.id)}" />
+            </h:column>
+        <h:column>
             <f:facet name="header">
                 Foi vendida?
             </f:facet>
@@ -83,5 +103,8 @@
 
         </h:column>
     </h:dataTable>
+    </ui:define>
+       </ui:composition >     
+       </h:body>
 </html>
 
